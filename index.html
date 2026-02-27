@@ -1,0 +1,1272 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="dark" />
+<title>DER DISZIPLIN-PROVOKATEUR™ · Offline Journal</title>
+<meta name="description" content="52 Wochen Struktur. Start jederzeit. Offline Journal mit Fortschritt, Reviews und Ritual. Keine Cloud. Kein Login." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --graphite:#1F2933;
+  --mint:#2EE6A6;
+  --sky:#5BC0EB;
+
+  --bg0:#070B10;
+  --bg1:#0B1116;
+  --bg2:#101A22;
+
+  --text:#EAF2FF;
+  --muted:rgba(234,242,255,.68);
+  --line:rgba(255,255,255,.10);
+
+  --radius:22px;
+  --shadow: 0 18px 60px rgba(0,0,0,.46);
+  --shadow2: 0 12px 40px rgba(0,0,0,.30);
+
+  --max: 1180px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(900px 650px at 20% 10%, rgba(46,230,166,.12), rgba(0,0,0,0) 60%),
+    radial-gradient(700px 520px at 78% 22%, rgba(91,192,235,.12), rgba(0,0,0,0) 60%),
+    radial-gradient(1200px 900px at 50% 120%, rgba(31,41,51,.55), rgba(0,0,0,0) 55%),
+    linear-gradient(180deg, var(--bg0), var(--bg1) 55%, var(--bg2));
+}
+
+a{ color:inherit; }
+button, input, textarea{ font-family:inherit; }
+
+.skip{
+  position:absolute; left:-9999px; top:auto;
+  width:1px;height:1px;overflow:hidden;
+}
+.skip:focus{
+  left:16px; top:16px; width:auto; height:auto;
+  padding:10px 12px;
+  background: rgba(255,255,255,.08);
+  border:1px solid var(--line);
+  border-radius:14px;
+  z-index:9999;
+}
+
+.topbar{
+  position:sticky; top:0; z-index:50;
+  background: rgba(7,11,16,.62);
+  backdrop-filter: blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.topbar__inner{
+  max-width: var(--max);
+  margin:0 auto;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.brand{ display:flex; align-items:center; gap:12px; min-width:0; }
+.brand__mark{
+  width:44px;height:44px;
+  border-radius:18px;
+  display:grid; place-items:center;
+  background:
+    radial-gradient(18px 18px at 30% 30%, rgba(46,230,166,.35), rgba(0,0,0,0) 70%),
+    radial-gradient(18px 18px at 75% 65%, rgba(91,192,235,.35), rgba(0,0,0,0) 70%),
+    rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow: var(--shadow2);
+}
+.brand__text{ min-width:0; }
+.brand__title{
+  font-weight:900;
+  letter-spacing:-0.02em;
+  line-height:1.1;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.brand__sub{
+  font-size:12px;
+  color: var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.topbar__actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.wrap{
+  max-width: var(--max);
+  margin:0 auto;
+  padding:18px 16px 44px;
+}
+
+.card{
+  border-radius: var(--radius);
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  box-shadow: var(--shadow);
+}
+.card + .card{ margin-top:16px; }
+
+.hero{
+  padding:18px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(900px 600px at 20% 10%, rgba(46,230,166,.10), rgba(0,0,0,0) 60%),
+    radial-gradient(780px 520px at 78% 25%, rgba(91,192,235,.10), rgba(0,0,0,0) 60%);
+  pointer-events:none;
+}
+
+.hero__grid{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:14px;
+}
+
+.kicker{
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color: rgba(234,242,255,.70);
+}
+.h1{
+  margin:10px 0 10px;
+  font-size:34px;
+  line-height:1.05;
+  letter-spacing:-0.03em;
+  font-weight:900;
+}
+.h1 .mint{
+  color: var(--mint);
+  text-shadow: 0 0 18px rgba(46,230,166,.20);
+}
+.lead{
+  margin:0;
+  color: var(--muted);
+  font-size:14px;
+  line-height:1.65;
+  max-width: 62ch;
+}
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+.pill{
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  border-radius: 999px;
+  padding:8px 10px;
+  font-size:12px;
+  color: rgba(234,242,255,.78);
+  font-weight:800;
+}
+
+.ctaRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+
+.btn{
+  border:1px solid transparent;
+  border-radius: 16px;
+  padding:12px 14px;
+  font-weight:900;
+  letter-spacing:-0.01em;
+  font-size:13px;
+  cursor:pointer;
+  user-select:none;
+  transition: transform .05s ease, filter .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:active{ transform: translateY(1px); }
+
+.btn--primary{
+  background: linear-gradient(90deg, var(--mint), var(--sky));
+  color: #061B26;
+  border:none;
+  box-shadow: var(--shadow2);
+}
+.btn--primary:hover{ filter: brightness(1.05); }
+
+.btn--ghost{
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.12);
+  color: var(--text);
+}
+.btn--ghost:hover{ background: rgba(255,255,255,.06); }
+
+.btn--danger{
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.12);
+  color: rgba(234,242,255,.90);
+}
+.btn--danger:hover{ background: rgba(255,0,64,.12); border-color: rgba(255,0,64,.18); }
+
+.filebtn{ position:relative; overflow:hidden; }
+.filebtn input{
+  position:absolute; inset:0; opacity:0; cursor:pointer;
+}
+
+.section{
+  padding:16px;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:10px;
+}
+
+.field .label{
+  display:block;
+  font-weight:900;
+  font-size:12px;
+  margin-bottom:8px;
+  color: rgba(234,242,255,.88);
+}
+.row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+
+.input{
+  width:100%;
+  padding:12px 12px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.22);
+  color: var(--text);
+  outline:none;
+  font-size:14px;
+}
+.input:focus{
+  border-color: rgba(46,230,166,.45);
+  box-shadow: 0 0 0 4px rgba(46,230,166,.14);
+}
+.input--small{ width: 120px; }
+
+.hint{
+  margin:8px 0 0;
+  font-size:12px;
+  color: var(--muted);
+}
+
+.progress{
+  border:1px solid rgba(255,255,255,.12);
+  border-radius: 18px;
+  padding:12px;
+  background: rgba(255,255,255,.04);
+  margin-top:12px;
+}
+.progress__meta{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:12px;
+  color: var(--muted);
+  margin-bottom:10px;
+}
+.progress__bar{
+  height:12px;
+  border-radius:999px;
+  background: rgba(255,255,255,.06);
+  overflow:hidden;
+}
+.progress__fill{
+  height:100%;
+  width:0%;
+  background: linear-gradient(90deg, var(--mint), var(--sky));
+  border-radius:999px;
+  transition: width .25s ease;
+  box-shadow: 0 0 18px rgba(46,230,166,.18);
+}
+
+.quick{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:flex-end;
+  margin-top:12px;
+}
+.jump{ margin-left:auto; min-width: 220px; }
+.jump .label{ margin-bottom:8px; }
+
+.weekHead{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  padding-bottom:12px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  margin-bottom:14px;
+}
+.h2{
+  margin:6px 0 0;
+  font-size:22px;
+  letter-spacing:-0.02em;
+  font-weight:900;
+}
+.phaseLine{
+  margin:8px 0 0;
+  color: var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+.check{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+}
+.check input{ width:18px; height:18px; accent-color: var(--mint); }
+
+.weekGrid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:10px;
+}
+.panel{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius: 18px;
+  padding:12px;
+  background:
+    radial-gradient(240px 120px at 10% 0%, rgba(46,230,166,.07), rgba(0,0,0,0) 60%),
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+}
+.panel__h{
+  font-weight:900;
+  letter-spacing:-0.01em;
+  margin-bottom:8px;
+}
+.panel__b{
+  color: rgba(234,242,255,.86);
+  line-height:1.6;
+  font-size:14px;
+}
+
+.notes{ margin-top:12px; }
+.notesHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+.notesTitle{ font-weight:900; letter-spacing:-0.01em; }
+.muted{ color: var(--muted); }
+.small{ font-size:12px; }
+
+.textarea{
+  width:100%;
+  padding:12px 12px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.20);
+  color: var(--text);
+  outline:none;
+  font-size:14px;
+  line-height:1.55;
+  resize: vertical;
+  min-height: 160px;
+}
+.textarea:focus{
+  border-color: rgba(91,192,235,.45);
+  box-shadow: 0 0 0 4px rgba(91,192,235,.14);
+}
+
+.footRow{
+  margin-top:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+}
+
+.badge{
+  padding:8px 10px;
+  border-radius:999px;
+  font-weight:900;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: rgba(234,242,255,.85);
+}
+.badge--sky{
+  background: rgba(91,192,235,.14);
+  border-color: rgba(91,192,235,.22);
+}
+.badge--mint{
+  background: rgba(46,230,166,.12);
+  border-color: rgba(46,230,166,.22);
+  color: rgba(234,242,255,.92);
+}
+
+.hidden{ display:none !important; }
+
+.footer{
+  margin-top:16px;
+  padding:14px 16px;
+  border-radius: var(--radius);
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+}
+.footerInner{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  font-size:12px;
+  color: rgba(234,242,255,.72);
+}
+
+@media (min-width: 860px){
+  .hero__grid{ grid-template-columns: 1.15fr .85fr; gap:16px; }
+  .h1{ font-size:46px; }
+  .grid2{ grid-template-columns: 1fr 1fr; }
+  .weekGrid{ grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#journal">Zum Journal</a>
+
+<header class="topbar" role="banner">
+  <div class="topbar__inner">
+    <div class="brand">
+      <div class="brand__mark" aria-hidden="true">🖤</div>
+      <div class="brand__text">
+        <div class="brand__title">DER DISZIPLIN-PROVOKATEUR™</div>
+        <div class="brand__sub">52 Wochen Struktur · Start jederzeit · Offline Journal</div>
+      </div>
+    </div>
+
+    <div class="topbar__actions">
+      <button class="btn btn--ghost" id="btnExport" type="button">Export</button>
+      <label class="btn btn--ghost filebtn" for="importFile">
+        Import
+        <input id="importFile" type="file" accept="application/json" />
+      </label>
+      <button class="btn btn--danger" id="btnReset" type="button" title="Alles löschen">Reset</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" role="main">
+
+  <section class="card hero" aria-label="Intro">
+    <div class="hero__grid">
+      <div>
+        <div class="kicker">🖤 RE:BELLE™ Media</div>
+        <h1 class="h1">DER <span class="mint">DISZIPLIN-PROVOKATEUR™</span></h1>
+        <p class="lead">
+          Kein Kalender. Kein Januar. Kein Neustart-Theater.<br>
+          Du startest – und dieses Journal zählt die Wochen ab dem Moment, in dem du dich entscheidest.
+        </p>
+
+        <div class="pills" aria-label="Produktversprechen">
+          <span class="pill">100% offline</span>
+          <span class="pill">keine Cloud</span>
+          <span class="pill">kein Login</span>
+          <span class="pill">kein Tracking</span>
+        </div>
+
+        <div class="ctaRow">
+          <button class="btn btn--primary" id="btnGoJournal" type="button">Woche 1 beginnt jetzt</button>
+          <button class="btn btn--ghost" id="btnGoHow" type="button">Wie es funktioniert</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="card section" style="box-shadow: var(--shadow2);">
+          <div class="kicker">Regeln</div>
+          <div style="margin-top:10px; line-height:1.7; color: var(--muted);">
+            <div><strong style="color:var(--text);">1.</strong> Eine Woche pro Woche.</div>
+            <div><strong style="color:var(--text);">2.</strong> Output messen – nicht Gefühle.</div>
+            <div><strong style="color:var(--text);">3.</strong> Streichen, was dich bremst.</div>
+            <div><strong style="color:var(--text);">4.</strong> Review in Woche 13/26/39. Ritual in Woche 52.</div>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+            <span class="badge badge--mint">Start jederzeit</span>
+            <span class="badge badge--sky">Progress saved</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card section" id="how" aria-label="Wie es funktioniert">
+    <div class="kicker">Wie es funktioniert</div>
+    <div class="grid2" style="margin-top:12px;">
+      <div class="panel">
+        <div class="panel__h">52 Wochen – progressiv</div>
+        <div class="panel__b">Du arbeitest dich durch 4 Phasen. Nicht nach Kalenderjahr – nach Konsequenz.</div>
+      </div>
+      <div class="panel">
+        <div class="panel__h">Startdatum = Wahrheit</div>
+        <div class="panel__b">Setz dein Startdatum. Die aktuelle Woche wird automatisch berechnet. Du kannst jederzeit springen.</div>
+      </div>
+      <div class="panel">
+        <div class="panel__h">Reviews & Ritual</div>
+        <div class="panel__b">Alle 13 Wochen: KPI, Eliminierung, Mut-Score. Woche 52: Zahlen + Abschluss + Ritual.</div>
+      </div>
+      <div class="panel">
+        <div class="panel__h">Offline gespeichert</div>
+        <div class="panel__b">Alles bleibt in deinem Browser (LocalStorage). Export/Import für Backups inklusive.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card section" id="journal" aria-label="Journal">
+    <div class="kicker">Journal</div>
+
+    <div class="grid2" style="margin-top:12px;">
+      <div class="panel">
+        <div class="panel__h">Startdatum</div>
+        <div class="panel__b">
+          <div class="field">
+            <label for="startDate" class="label">Dein Startdatum</label>
+            <div class="row">
+              <input id="startDate" class="input" type="date" />
+              <button id="btnStartToday" class="btn btn--ghost" type="button">Heute starten</button>
+            </div>
+            <p class="hint">Wenn du schon gestartet hast: setz dein echtes Datum. Die Woche passt sich automatisch an.</p>
+          </div>
+
+          <div class="progress">
+            <div class="progress__meta">
+              <span id="progressText">0% abgeschlossen</span>
+              <span id="daysText">—</span>
+            </div>
+            <div class="progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="52" aria-valuenow="0" aria-label="Fortschritt">
+              <div class="progress__fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="quick">
+            <button class="btn btn--ghost" id="btnPrev" type="button">← Vorherige</button>
+            <button class="btn btn--ghost" id="btnNext" type="button">Nächste →</button>
+            <div class="jump">
+              <label class="label" for="weekJump">Springe zu Woche</label>
+              <div class="row">
+                <input id="weekJump" class="input input--small" type="number" min="1" max="52" inputmode="numeric" />
+                <button class="btn btn--primary" id="btnJump" type="button">Go</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pills" style="margin-top:14px;">
+            <span class="badge">Aktuelle Woche: <span id="pillWeek">—</span></span>
+            <span class="badge">Phase: <span id="pillPhase">—</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__h">Heute ist kein Special. Es ist Standard.</div>
+        <div class="panel__b">
+          Du bist nicht hier, um dich zu motivieren.<br>
+          Du bist hier, um dir selbst wieder zu glauben.<br><br>
+          <span class="badge badge--mint">Messbar.</span>
+          <span class="badge badge--sky">Unbequem.</span>
+          <span class="badge">Wirksam.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card section" style="margin-top:16px; box-shadow: var(--shadow2);">
+      <header class="weekHead">
+        <div>
+          <div class="kicker" id="weekKicker">Woche —</div>
+          <h2 class="h2" id="weekTitle">—</h2>
+          <p class="phaseLine" id="weekPhaseLine">—</p>
+        </div>
+
+        <div>
+          <label class="check">
+            <input type="checkbox" id="weekDone" />
+            <span>Woche abgeschlossen</span>
+          </label>
+        </div>
+      </header>
+
+      <div class="weekGrid">
+        <div class="panel">
+          <div class="panel__h">Ziel</div>
+          <div class="panel__b" id="weekGoal">—</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Aufgabe</div>
+          <div class="panel__b" id="weekTask">—</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Zeitrahmen</div>
+          <div class="panel__b" id="weekTime">—</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Reflexionsfrage</div>
+          <div class="panel__b" id="weekReflection">—</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Messpunkt</div>
+          <div class="panel__b" id="weekMetric">—</div>
+        </div>
+      </div>
+
+      <div class="notes">
+        <div class="notesHead">
+          <div class="notesTitle">Notizen (offline gespeichert)</div>
+          <div class="muted small" id="saveState">—</div>
+        </div>
+
+        <textarea id="notes" class="textarea" rows="10" placeholder="Was ist passiert? Was hast du gestrichen? Was war die Reibung? Was ist das Ergebnis?"></textarea>
+
+        <div class="footRow">
+          <button class="btn btn--ghost" id="btnClearNotes" type="button">Notizen löschen</button>
+          <div class="muted small">Alles bleibt lokal im Browser. Export/Import für Backups.</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="card section hidden" id="reviewCard" aria-label="Review">
+      <div class="weekHead" style="margin-bottom:0;">
+        <div>
+          <div class="kicker" id="reviewKicker">Review</div>
+          <h2 class="h2" id="reviewTitle">Quartals-Review</h2>
+          <p class="phaseLine" id="reviewLead">—</p>
+        </div>
+        <div class="badge badge--sky" id="reviewBadge">Review</div>
+      </div>
+
+      <div class="weekGrid" style="margin-top:14px;">
+        <div class="panel">
+          <div class="panel__h">KPI-Check</div>
+          <div class="panel__b">
+            <div class="grid2">
+              <label class="field">
+                <span class="label">Output (Anzahl)</span>
+                <input class="input" id="kpiOutput" type="number" min="0" inputmode="numeric" />
+              </label>
+              <label class="field">
+                <span class="label">Veröffentlichungen</span>
+                <input class="input" id="kpiPublishes" type="number" min="0" inputmode="numeric" />
+              </label>
+              <label class="field">
+                <span class="label">Umsatz (EUR)</span>
+                <input class="input" id="kpiRevenue" type="number" min="0" step="0.01" inputmode="decimal" />
+              </label>
+              <label class="field">
+                <span class="label">Abgeschlossene Projekte</span>
+                <input class="input" id="kpiDoneProjects" type="number" min="0" inputmode="numeric" />
+              </label>
+              <label class="field">
+                <span class="label">Neue Kontakte/Koops</span>
+                <input class="input" id="kpiContacts" type="number" min="0" inputmode="numeric" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Eliminationsliste</div>
+          <div class="panel__b">
+            <p class="muted small">Streich 3 Dinge, die dich sabotieren. Brutal konkret.</p>
+            <textarea id="elimList" class="textarea" rows="8" placeholder="1) …&#10;2) …&#10;3) …"></textarea>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Mut-Score (0–10)</div>
+          <div class="panel__b">
+            <div class="row" style="gap:12px;">
+              <input id="mutScore" type="range" min="0" max="10" step="1" style="width:100%; accent-color: var(--sky);" />
+              <div class="badge"><span id="mutScoreVal">0</span>/10</div>
+            </div>
+            <p class="muted small">0 = Verwaltung · 10 = Reibung, Risiko, Wachstum</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Review-Notizen</div>
+          <div class="panel__b">
+            <textarea id="reviewNotes" class="textarea" rows="10" placeholder="Was hat funktioniert? Was ist tot? Was ist als Nächstes unvermeidlich?"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="footRow">
+        <button class="btn btn--primary" id="btnSaveReview" type="button">Review speichern</button>
+        <div class="muted small" id="reviewSaveState">—</div>
+      </div>
+    </section>
+
+    <section class="card section hidden" id="ritualCard" aria-label="Ritual">
+      <div class="weekHead" style="margin-bottom:0;">
+        <div>
+          <div class="kicker">Woche 52</div>
+          <h2 class="h2">Das Ritual</h2>
+          <p class="phaseLine">Du beendest kein Jahr. Du beendest eine Version von dir.</p>
+        </div>
+        <div class="badge badge--mint">RITUAL</div>
+      </div>
+
+      <div class="weekGrid" style="margin-top:14px;">
+        <div class="panel">
+          <div class="panel__h">Objektive Veränderung</div>
+          <div class="panel__b">
+            <p class="muted small">Schreib Zahlen. Keine Poesie. Beweise.</p>
+            <textarea id="objChange" class="textarea" rows="8" placeholder="Output gesamt: …&#10;Veröffentlichungen: …&#10;Umsatz: …&#10;Eliminierte Ablenkungen: …"></textarea>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Ritual-Plan</div>
+          <div class="panel__b">
+            <textarea id="ritualPlan" class="textarea" rows="8" placeholder="Ich drucke meine 5 stärksten Arbeiten.&#10;Ich lösche 30% Altlasten.&#10;Ich schreibe mein Manifest für Woche 1."></textarea>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Abschluss-Statement</div>
+          <div class="panel__b">
+            <input id="finalStatement" class="input" type="text" maxlength="140" placeholder="Ein Satz. Unterschrieben. Wahr." />
+            <p class="muted small" style="margin-top:8px;">Beispiel: „Struktur ist meine Form von Freiheit.“</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__h">Speichern</div>
+          <div class="panel__b">
+            <button class="btn btn--primary" id="btnSaveRitual" type="button">Ritual speichern</button>
+            <div class="muted small" id="ritualSaveState" style="margin-top:10px;">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </section>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footerInner">
+      <div><strong>🖤 RE:BELLE™ Media</strong> · DER DISZIPLIN-PROVOKATEUR™</div>
+      <div>Keine Cloud · Keine App · Kein Login · LocalStorage only</div>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  const STORAGE_KEY = "rebelle_disciplin_provokateur_v1";
+  const MAX_WEEKS = 52;
+
+  const PHASES = [
+    { name: "Foundation", range: [1, 13], blurb: "Fokus & Disziplin. Du baust ein tragfähiges Fundament." },
+    { name: "Expansion", range: [14, 26], blurb: "Output & Sichtbarkeit. Du lieferst – ohne dich zu verstecken." },
+    { name: "Confrontation", range: [27, 39], blurb: "Risiko & Reibung. Du wählst Wachstum statt Komfort." },
+    { name: "Refinement", range: [40, 52], blurb: "Reduktion & Klarheit. Du streichst, was nicht trägt." }
+  ];
+
+  const REVIEW_WEEKS = new Set([13, 26, 39]);
+  const RITUAL_WEEK = 52;
+
+  // Default-Week-Set (neutral, messbar). Du kannst die Texte später ersetzen,
+  // ohne die Logik zu ändern.
+  const WEEKS = Array.from({ length: MAX_WEEKS }, (_, i) => {
+    const w = i + 1;
+    const phase = getPhase(w).name;
+
+    const presets = {
+      Foundation: [
+        { title: "Start Without Permission", goal: "Momentum statt Warten.", task: "Lege ein Projekt fest (1 Satz). Definiere eine messbare Ausgabe.", time: "45 Minuten", reflection: "Wo wartest du auf Erlaubnis?", metric: "1 Projekt-Satz + 1 messbare Ausgabe dokumentiert." },
+        { title: "One Hour Monastery", goal: "Fokus kultivieren.", task: "Arbeite 60 Minuten ohne Handy/Multitasking. Nur eine Sache.", time: "60 Minuten", reflection: "Welche Ablenkung schreit am lautesten?", metric: "1 Fokus-Session abgeschlossen (Start/Ende notiert)." },
+        { title: "Kill the Draft", goal: "Fertig statt perfekt.", task: "Beende etwas Kleines und exportiere es (PDF/JPG/Link).", time: "90 Minuten", reflection: "Was hält dich in der Zwischenwelt?", metric: "1 Export/Link existiert." },
+        { title: "Routine With Teeth", goal: "Ritual statt Romantik.", task: "Definiere 3 fixe Slots (z.B. Mo/Mi/Fr) für Output.", time: "30 Minuten", reflection: "Welche Ausrede nutzt du am häufigsten?", metric: "3 Slots eingetragen." }
+      ],
+      Expansion: [
+        { title: "Publish Anyway", goal: "Sichtbarkeit ohne Perfektion.", task: "Veröffentliche 2 Arbeiten. Max. 30 Minuten Feinschliff pro Arbeit.", time: "7 Tage", reflection: "Was vermeidest du aus Angst vor Urteil?", metric: "2 Veröffentlichungen (Link dokumentiert)." },
+        { title: "Make It Sell", goal: "Kreativität als Wert.", task: "Formuliere 1 Angebot: Problem → Lösung → Preis → CTA.", time: "60 Minuten", reflection: "Wo sabotierst du deinen Wert?", metric: "1 Angebotstext fertig." },
+        { title: "Ask for the Yes", goal: "Kooperation aktivieren.", task: "Schreibe 3 Kontakte/Brands an (klar, kurz, konkret).", time: "45 Minuten", reflection: "Wovor schützt dich dein Schweigen?", metric: "3 gesendete Nachrichten." },
+        { title: "Ship a System", goal: "Wiederholbarkeit bauen.", task: "Erstelle 1 Workflow-Checkliste für deinen Output.", time: "60 Minuten", reflection: "Was wäre leichter, wenn es Standard wäre?", metric: "1 Checkliste vorhanden." }
+      ],
+      Confrontation: [
+        { title: "Do the Hard Thing", goal: "Reibung wählen.", task: "Mach die Aufgabe, die du am liebsten verschiebst. Erst 20 Minuten.", time: "20 Minuten", reflection: "Was würdest du tun, wenn niemand zusieht?", metric: "20 Minuten echte Arbeit am Widerstand." },
+        { title: "Cut Comfort", goal: "Komfort reduzieren.", task: "Eliminiere 1 Ablenkung für 7 Tage (z.B. Social, Serien, News).", time: "7 Tage", reflection: "Was beruhigt dich – und bremst dich?", metric: "1 Ablenkung gestrichen + Effekt notiert." },
+        { title: "Raise the Stakes", goal: "Einsatz erhöhen.", task: "Setze eine Deadline + Konsequenz (öffentlich oder finanziell).", time: "30 Minuten", reflection: "Was passiert, wenn du es ernst meinst?", metric: "Deadline + Konsequenz schriftlich." },
+        { title: "Expose the Work", goal: "Mut trainieren.", task: "Zeige Work-in-Progress öffentlich (Story/Post/Newsletter).", time: "45 Minuten", reflection: "Welche Version von dir versteckst du?", metric: "1 WIP veröffentlicht." }
+      ],
+      Refinement: [
+        { title: "Less, But Sharper", goal: "Schärfen durch Reduktion.", task: "Wähle 1 Kernprojekt. Streiche 2 Nebenprojekte konsequent.", time: "45 Minuten", reflection: "Was hältst du nur aus Gewohnheit?", metric: "1 Kernprojekt + 2 Streichungen dokumentiert." },
+        { title: "Portfolio Verdict", goal: "Qualität sichtbar machen.", task: "Kuratiere 9 Arbeiten. Reihenfolge = Aussage.", time: "90 Minuten", reflection: "Was ist dein Signature – wirklich?", metric: "9er-Set fertig (Link/Export)." },
+        { title: "Build the Loop", goal: "Wiederholbar gewinnen.", task: "Definiere deinen 4-Wochen-Loop (Produktion → Veröffentlichung → Angebot → Review).", time: "60 Minuten", reflection: "Was ist deine klare Wiederholung?", metric: "Loop dokumentiert." },
+        { title: "Maintain the Edge", goal: "Standard setzen.", task: "Schreibe 1 Regel: Was du ab jetzt nicht mehr tust.", time: "20 Minuten", reflection: "Welche Grenze macht dich frei?", metric: "1 Regel notiert + sichtbar platziert." }
+      ]
+    };
+
+    const set = presets[phase];
+    const pick = set[(w - 1) % set.length];
+
+    return { week:w, phase, ...pick };
+  });
+
+  const el = (id) => document.getElementById(id);
+
+  const btnGoJournal = el("btnGoJournal");
+  const btnGoHow = el("btnGoHow");
+
+  const startDate = el("startDate");
+  const btnStartToday = el("btnStartToday");
+  const pillWeek = el("pillWeek");
+  const pillPhase = el("pillPhase");
+  const progressFill = el("progressFill");
+  const progressText = el("progressText");
+  const daysText = el("daysText");
+
+  const btnPrev = el("btnPrev");
+  const btnNext = el("btnNext");
+  const weekJump = el("weekJump");
+  const btnJump = el("btnJump");
+
+  const weekKicker = el("weekKicker");
+  const weekTitle = el("weekTitle");
+  const weekPhaseLine = el("weekPhaseLine");
+  const weekDone = el("weekDone");
+
+  const weekGoal = el("weekGoal");
+  const weekTask = el("weekTask");
+  const weekTime = el("weekTime");
+  const weekReflection = el("weekReflection");
+  const weekMetric = el("weekMetric");
+
+  const notes = el("notes");
+  const saveStateEl = el("saveState");
+  const btnClearNotes = el("btnClearNotes");
+
+  const reviewCard = el("reviewCard");
+  const reviewKicker = el("reviewKicker");
+  const reviewTitle = el("reviewTitle");
+  const reviewLead = el("reviewLead");
+  const reviewBadge = el("reviewBadge");
+
+  const kpiOutput = el("kpiOutput");
+  const kpiPublishes = el("kpiPublishes");
+  const kpiRevenue = el("kpiRevenue");
+  const kpiDoneProjects = el("kpiDoneProjects");
+  const kpiContacts = el("kpiContacts");
+  const elimList = el("elimList");
+  const mutScore = el("mutScore");
+  const mutScoreVal = el("mutScoreVal");
+  const reviewNotes = el("reviewNotes");
+  const btnSaveReview = el("btnSaveReview");
+  const reviewSaveState = el("reviewSaveState");
+
+  const ritualCard = el("ritualCard");
+  const objChange = el("objChange");
+  const ritualPlan = el("ritualPlan");
+  const finalStatement = el("finalStatement");
+  const btnSaveRitual = el("btnSaveRitual");
+  const ritualSaveState = el("ritualSaveState");
+
+  const btnExport = el("btnExport");
+  const importFile = el("importFile");
+  const btnReset = el("btnReset");
+
+  const state = loadState();
+  let activeWeek = clampInt(state.ui.activeWeek || 1, 1, MAX_WEEKS);
+
+  init();
+
+  function init(){
+    btnGoJournal.addEventListener("click", () => {
+      document.getElementById("journal").scrollIntoView({ behavior:"smooth" });
+      if (!state.startDate) {
+        state.startDate = toISODate(new Date());
+        startDate.value = state.startDate;
+        saveStateNow("Startdatum gesetzt.");
+      }
+      recalcActiveWeekFromStart(true);
+      render();
+    });
+
+    btnGoHow.addEventListener("click", () => {
+      document.getElementById("how").scrollIntoView({ behavior:"smooth" });
+    });
+
+    hydrateStartDate();
+    recalcActiveWeekFromStart(false);
+    render();
+
+    btnStartToday.addEventListener("click", () => {
+      const today = toISODate(new Date());
+      startDate.value = today;
+      state.startDate = today;
+      saveStateNow("Startdatum gespeichert.");
+      recalcActiveWeekFromStart(true);
+      render();
+    });
+
+    startDate.addEventListener("change", () => {
+      const val = startDate.value;
+      if (!isValidISODate(val)) return;
+      state.startDate = val;
+      saveStateNow("Startdatum gespeichert.");
+      recalcActiveWeekFromStart(true);
+      render();
+    });
+
+    btnPrev.addEventListener("click", () => navTo(activeWeek - 1));
+    btnNext.addEventListener("click", () => navTo(activeWeek + 1));
+
+    btnJump.addEventListener("click", () => {
+      const target = clampInt(parseInt(weekJump.value, 10) || 1, 1, MAX_WEEKS);
+      navTo(target);
+    });
+
+    weekDone.addEventListener("change", () => {
+      const wKey = String(activeWeek);
+      state.weeks[wKey] = state.weeks[wKey] || {};
+      state.weeks[wKey].done = !!weekDone.checked;
+      saveStateNow("Woche gespeichert.");
+      renderProgress();
+    });
+
+    const debouncedNotesSave = debounce(() => {
+      const wKey = String(activeWeek);
+      state.weeks[wKey] = state.weeks[wKey] || {};
+      state.weeks[wKey].notes = notes.value || "";
+      saveStateNow("Notizen gespeichert.");
+    }, 250);
+
+    notes.addEventListener("input", () => {
+      saveStateEl.textContent = "Speichere…";
+      debouncedNotesSave();
+    });
+
+    btnClearNotes.addEventListener("click", () => {
+      const wKey = String(activeWeek);
+      state.weeks[wKey] = state.weeks[wKey] || {};
+      state.weeks[wKey].notes = "";
+      notes.value = "";
+      saveStateNow("Notizen gelöscht.");
+    });
+
+    mutScore.addEventListener("input", () => {
+      mutScoreVal.textContent = String(mutScore.value);
+    });
+
+    btnSaveReview.addEventListener("click", () => {
+      const wk = String(activeWeek);
+      state.reviews[wk] = {
+        kpi: {
+          output: numOr0(kpiOutput.value),
+          publishes: numOr0(kpiPublishes.value),
+          revenue: numOr0(kpiRevenue.value),
+          doneProjects: numOr0(kpiDoneProjects.value),
+          contacts: numOr0(kpiContacts.value)
+        },
+        elimList: elimList.value || "",
+        mutScore: clampInt(parseInt(mutScore.value, 10) || 0, 0, 10),
+        notes: reviewNotes.value || "",
+        savedAt: new Date().toISOString()
+      };
+      saveStateNow("Review gespeichert.");
+      reviewSaveState.textContent = "Review gespeichert.";
+    });
+
+    btnSaveRitual.addEventListener("click", () => {
+      state.ritual = {
+        objChange: objChange.value || "",
+        ritualPlan: ritualPlan.value || "",
+        finalStatement: finalStatement.value || "",
+        savedAt: new Date().toISOString()
+      };
+      saveStateNow("Ritual gespeichert.");
+      ritualSaveState.textContent = "Ritual gespeichert.";
+    });
+
+    btnExport.addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `disziplin-provokateur-backup-${toISODate(new Date())}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    importFile.addEventListener("change", async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      try{
+        const text = await file.text();
+        const data = JSON.parse(text);
+        const merged = normalizeState(data);
+        Object.assign(state, merged);
+        activeWeek = clampInt(state.ui.activeWeek || 1, 1, MAX_WEEKS);
+        hydrateStartDate();
+        recalcActiveWeekFromStart(true);
+        saveStateNow("Import erfolgreich.");
+        render();
+        importFile.value = "";
+      }catch{
+        alert("Import fehlgeschlagen. Bitte eine gültige JSON-Exportdatei auswählen.");
+        importFile.value = "";
+      }
+    });
+
+    btnReset.addEventListener("click", () => {
+      const ok = confirm("Wirklich alles löschen? (Startdatum, Notizen, Fortschritt, Reviews)");
+      if (!ok) return;
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    });
+  }
+
+  function navTo(target){
+    activeWeek = clampInt(target, 1, MAX_WEEKS);
+    state.ui.activeWeek = activeWeek;
+    saveStateNow("Navigation gespeichert.");
+    render();
+  }
+
+  function render(){
+    renderHeader();
+    renderWeek();
+    renderReviewOrRitual();
+    renderProgress();
+  }
+
+  function renderHeader(){
+    const phase = getPhase(activeWeek);
+    pillWeek.textContent = String(activeWeek);
+    pillPhase.textContent = phase.name;
+
+    const s = state.startDate ? `Start: ${state.startDate}` : "Startdatum: —";
+    const start = state.startDate ? parseISODate(state.startDate) : null;
+    if (start){
+      const today = startOfDay(new Date());
+      const days = Math.max(0, Math.floor((today - start) / 86400000));
+      daysText.textContent = `${s} · Tag ${days + 1}`;
+    } else {
+      daysText.textContent = s;
+    }
+  }
+
+  function renderWeek(){
+    const w = WEEKS[activeWeek - 1];
+    const phase = getPhase(activeWeek);
+
+    weekKicker.textContent = `Woche ${w.week}`;
+    weekTitle.textContent = w.title;
+    weekPhaseLine.textContent = `${phase.name} · ${phase.blurb}`;
+
+    weekGoal.textContent = w.goal;
+    weekTask.textContent = w.task;
+    weekTime.textContent = w.time;
+    weekReflection.textContent = w.reflection;
+    weekMetric.textContent = w.metric;
+
+    const saved = state.weeks[String(activeWeek)] || {};
+    weekDone.checked = !!saved.done;
+    notes.value = saved.notes || "";
+    saveStateEl.textContent = "Offline gespeichert.";
+  }
+
+  function renderReviewOrRitual(){
+    const isReview = REVIEW_WEEKS.has(activeWeek);
+    const isRitual = activeWeek === RITUAL_WEEK;
+
+    reviewCard.classList.toggle("hidden", !isReview);
+    ritualCard.classList.toggle("hidden", !isRitual);
+
+    if (isReview){
+      reviewKicker.textContent = "Review";
+      reviewTitle.textContent = `Quartals-Review · Woche ${activeWeek}`;
+      reviewBadge.textContent = `W${activeWeek}`;
+      reviewLead.textContent = "KPI. Eliminierung. Mut. Dann weiter.";
+
+      const data = state.reviews[String(activeWeek)] || null;
+      kpiOutput.value = data?.kpi?.output ?? "";
+      kpiPublishes.value = data?.kpi?.publishes ?? "";
+      kpiRevenue.value = data?.kpi?.revenue ?? "";
+      kpiDoneProjects.value = data?.kpi?.doneProjects ?? "";
+      kpiContacts.value = data?.kpi?.contacts ?? "";
+      elimList.value = data?.elimList ?? "";
+      mutScore.value = String(data?.mutScore ?? 0);
+      mutScoreVal.textContent = String(mutScore.value);
+      reviewNotes.value = data?.notes ?? "";
+      reviewSaveState.textContent = data?.savedAt ? `Zuletzt gespeichert: ${formatTS(data.savedAt)}` : "Noch nicht gespeichert.";
+    }
+
+    if (isRitual){
+      const data = state.ritual || null;
+      objChange.value = data?.objChange ?? "";
+      ritualPlan.value = data?.ritualPlan ?? "";
+      finalStatement.value = data?.finalStatement ?? "";
+      ritualSaveState.textContent = data?.savedAt ? `Zuletzt gespeichert: ${formatTS(data.savedAt)}` : "Noch nicht gespeichert.";
+    }
+  }
+
+  function renderProgress(){
+    const doneCount = Object.values(state.weeks).filter(w => w && w.done).length;
+    const pct = Math.round((doneCount / MAX_WEEKS) * 100);
+    progressText.textContent = `${pct}% abgeschlossen · ${doneCount}/${MAX_WEEKS} Wochen`;
+    progressFill.style.width = `${pct}%`;
+    const bar = document.querySelector(".progress__bar");
+    if (bar) bar.setAttribute("aria-valuenow", String(doneCount));
+  }
+
+  function recalcActiveWeekFromStart(force){
+    if (!state.startDate){
+      if (!force) {
+        state.startDate = toISODate(new Date());
+        hydrateStartDate();
+        saveStateNow("Startdatum gesetzt.");
+      } else return;
+    }
+
+    const start = parseISODate(state.startDate);
+    if (!start) return;
+
+    const today = startOfDay(new Date());
+    const deltaDays = Math.floor((today - start) / 86400000);
+    const week = clampInt(Math.floor(deltaDays / 7) + 1, 1, MAX_WEEKS);
+
+    if (!state.ui.activeWeek || force){
+      activeWeek = week;
+      state.ui.activeWeek = activeWeek;
+      saveStateNow("Aktuelle Woche aktualisiert.");
+    }
+  }
+
+  function hydrateStartDate(){
+    if (state.startDate && isValidISODate(state.startDate)) startDate.value = state.startDate;
+  }
+
+  function getPhase(week){
+    for (const p of PHASES){
+      if (week >= p.range[0] && week <= p.range[1]) return p;
+    }
+    return PHASES[0];
+  }
+
+  function loadState(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return normalizeState({});
+    try{ return normalizeState(JSON.parse(raw)); }
+    catch{ return normalizeState({}); }
+  }
+
+  function normalizeState(input){
+    const base = { version: 1, startDate: "", weeks: {}, reviews: {}, ritual: null, ui: { activeWeek: 1 }, savedAt: "" };
+    const out = { ...base };
+    if (input && typeof input === "object"){
+      out.startDate = isValidISODate(input.startDate) ? input.startDate : "";
+      out.weeks = (input.weeks && typeof input.weeks === "object") ? input.weeks : {};
+      out.reviews = (input.reviews && typeof input.reviews === "object") ? input.reviews : {};
+      out.ritual = (input.ritual && typeof input.ritual === "object") ? input.ritual : null;
+      out.ui = (input.ui && typeof input.ui === "object") ? { ...base.ui, ...input.ui } : { ...base.ui };
+      out.savedAt = typeof input.savedAt === "string" ? input.savedAt : "";
+    }
+    return out;
+  }
+
+  function saveStateNow(message){
+    state.savedAt = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    saveStateEl.textContent = message || "Offline gespeichert.";
+  }
+
+  function toISODate(d){
+    const yy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${yy}-${mm}-${dd}`;
+  }
+
+  function parseISODate(str){
+    if (!isValidISODate(str)) return null;
+    const [y, m, d] = str.split("-").map(n => parseInt(n, 10));
+    const dt = new Date(y, m - 1, d);
+    return isNaN(dt.getTime()) ? null : startOfDay(dt);
+  }
+
+  function isValidISODate(str){
+    return typeof str === "string" && /^\d{4}-\d{2}-\d{2}$/.test(str);
+  }
+
+  function startOfDay(d){
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  }
+
+  function clampInt(n, min, max){
+    const x = Number.isFinite(n) ? n : min;
+    return Math.max(min, Math.min(max, Math.trunc(x)));
+  }
+
+  function numOr0(val){
+    const n = parseFloat(String(val).replace(",", "."));
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  function debounce(fn, delay){
+    let t = null;
+    return (...args) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...args), delay);
+    };
+  }
+
+  function formatTS(iso){
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const yy = d.getFullYear();
+    const hh = String(d.getHours()).padStart(2, "0");
+    const mi = String(d.getMinutes()).padStart(2, "0");
+    return `${dd}.${mm}.${yy} ${hh}:${mi}`;
+  }
+})();
+</script>
+
+</body>
+</html>
